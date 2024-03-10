@@ -1,0 +1,33 @@
+print("made by superleon**")
+print("running underground hack")
+print("fuck you geeks looking at console")
+
+getgenv().MinimumTime = 100000
+getgenv().Ran = getrenv().Ran ~= nil and getrenv().Ran + 1 or 0
+
+local Player = game:GetService("Players").LocalPlayer
+local Character = Player.Character
+
+if getgenv().Ran == 0 then
+    local baseplate = Instance.new("Part")
+    baseplate.Size = Vector3.new(25, 3.5, 25)
+    baseplate.CFrame = CFrame.new(0, -23.5, 0)
+    baseplate.Anchored = true
+    baseplate.Parent = workspace
+
+    while task.wait() do
+        for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+            if i == 1 then continue end
+            if not v:FindFirstChild("leaderstats") then continue end
+            if not v:FindFirstChild("leaderstats"):FindFirstChild("Time") then continue end
+            if v:FindFirstChild("leaderstats"):FindFirstChild("Time").Value < getgenv().MinimumTime then continue end
+            if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("Humanoid").Health > 0 and not getrenv().shared.InSafeZone(v.Character) then
+                repeat
+                    Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame  + Vector3.new(0, -5, 0)
+                    task.wait()
+                until v.Character.Humanoid.Health <= 0 or getrenv().shared.InSafeZone(v.Character)
+            end
+        end
+        Character.HumanoidRootPart.CFrame = CFrame.new(0, -17, 0)
+    end
+end
